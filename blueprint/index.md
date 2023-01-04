@@ -5,12 +5,19 @@ indextype: blueprint
 icon: blueprint
 image: images/001.png
 category: 5
-summary: This Genesys Cloud Developer Blueprint provides a simple example of implementing Limitless GigCX on Genesys Cloud [https://www.limitlesstech.com/genesys/](https://www.limitlesstech.com/genesys/ "Goes to the GigCX with Limitless and Genesys page") to manage and deliver expert customer support.
+summary: This Genesys Cloud Developer Blueprint provides a simple example of how to implement Limitless GigCX on Genesys Cloud [https://www.limitlesstech.com/genesys/](https://www.limitlesstech.com/genesys/ "Goes to the GigCX with Limitless and Genesys page") to manage and deliver expert customer support.
 ---
+:::{"alert":"primary","title":"About Genesys Cloud Blueprints","autoCollapse":false} 
+Genesys Cloud blueprints were built to help you jump-start building an application or integrating with a third-party partner. 
+Blueprints are meant to outline how to build and deploy your solutions, not a production-ready turn-key solution.
+ 
+For more details on Genesys Cloud blueprint support and practices 
+please see our Genesys Cloud blueprint [FAQ](https://developer.genesys.cloud/blueprints/faq)sheet.
+:::
 
-## Implementing a support platform that delivers exceptional customer experience
+## Implement a support platform that delivers exceptional customer experience
 
-This Genesys Cloud Developer Blueprint provides a simple example of implementing Limitless GigCX on Genesys Cloud [https://www.limitlesstech.com/genesys/](https://www.limitlesstech.com/genesys/ "Goes to the GigCX with Limitless and Genesys page") to manage and deliver expert customer support.
+This Genesys Cloud Developer Blueprint provides a simple example of how to implement Limitless GigCX on Genesys Cloud [https://www.limitlesstech.com/genesys/](https://www.limitlesstech.com/genesys/ "Goes to the GigCX with Limitless and Genesys page") to manage and deliver expert customer support.
 
 ![Limitless GigCX workflow](001.png "Limitless GigCX workflow")
 
@@ -29,9 +36,9 @@ This Genesys Cloud Developer Blueprint provides a simple example of implementing
 ### Specialized knowledge
 
 - Experience with Limitless GigCX
-- Experience designing Architect flows
-- Experience importing and/or designing Genesys Cloud Data Actions
-- Experience configuring and installing Genesys Cloud web chat v1.1 or Genesys Cloud v2
+- Experience on how to design Architect flows
+- Experience on how to import and/or design Genesys Cloud Data Actions
+- Experience how to configure and install Genesys Cloud web chat v1.1 or Genesys Cloud v2
 
 The following diagram shows a high-level representation of the implementation.
 
@@ -41,7 +48,7 @@ You can learn more about Limitless GigCX and Genesys at: [https://www.limitlesst
 
 # Implementation steps
 
-## Connecting to Limitless GigCX SmartCrowd
+## Connect to Limitless GigCX SmartCrowd
 
 Without connectivity to Limitless GigCX SmartCrowd, you cannot bring Experts into the conversation. The expert crowd uses the SmartCrowd platform to receive conversations and respond to them. The expert can do this process via Web or Mobile App, and they receive rewards on a per task basis. Limitless GigCX operates a fully managed service for the expert crowd, so a Limitless GigCX client is required to connect to the platform and route tasks. This blueprint shows you how to achieve that for Genesys Cloud.
 
@@ -58,7 +65,7 @@ The API key and Group Name are passed through to SmartCrowd via Data Actions, an
 
 ## The data actions
 
-We use Data Actions to call the Limitless GigCX APIs. There are 12 data actions saved in this blueprint under the "Data Actions" subdirectory. Before importing the Data Actions, be sure to have both "Web Services Data Actions" integration and the “Genesys Cloud Data Actions” installed and made active. For more information see, [About the web services data actions integration](https://help.mypurecloud.com/?p=127163 "Goes to the About the web services data actions integration article") in the Genesys Cloud Resource Center.
+We use Data Actions to call the Limitless GigCX APIs. There are 12 data actions saved in this blueprint under the "Data Actions" subdirectory. Before you import the Data Actions, be sure to have both "Web Services Data Actions" integration and the “Genesys Cloud Data Actions” installed and made active. For more information see, [About the web services data actions integration](https://help.mypurecloud.com/?p=127163 "Goes to the About the web services data actions integration article") in the Genesys Cloud Resource Center.
 
 Now we import each of the 12 data actions. For more information see, [Import or export a data action for integrations](https://help.mypurecloud.c}om/?p=161024 "Goes to the Import or export a data action for integrations article") in the Genesys Cloud Resource Center.
 
@@ -79,8 +86,8 @@ The following are data actions to import:
 |Limitless - Return from SmartCrowd v1|Web Services|N/A| - Open messaging flow - Chat flow |Tells SmartCrowd to close its message lifecycle as Genesys has introduced an Agent into the conversation.|
 |Limitless - Get Full Event from SmartCrowd v1|Web Services|N/A| - Open messaging flow - Email flow - Chat flow</p>|Retrieves expert dialogue and SmartCrowd Message Status events from the Limitless event queue.|
 |Limitless Send Email Reply v1|Web Services|N/A|- Email flow|Send the expert response via email using an SMTP server.|
-|Limitless - Shorten Link v1|Web Services|N/A| - Open messaging flow - Email flow - Chat flow |Used to call out to a 3rd Party url shortener to reduce the size of the CSAT link. The example url here is for Bitly: [Short links, big results](https://bitly.com/ "Goes to the Short links, big results page") and to use that service you need a Bitly account and then to input your account specific token into the header. You can also replace Bitly with your url shortner of choice.|
-After importing all the data actions, you must publish them to be used in our Architect flows.
+|Limitless - Shorten Link v1|Web Services|N/A| - Open messaging flow - Email flow - Chat flow |Used to call out to a 3rd Party url shortener to reduce the size of the CSAT link. The example url here is for Bitly: [Short links, big results](https://bitly.com/ "Goes to the Short links, big results page") and to use that service you need a Bitly account and then to input your account specific token into the header. You can also replace Bitly with a short url of choice.|
+After you import all the data actions, you must publish them to be used in our Architect flows.
 
 ## The architect flows
 
@@ -103,7 +110,7 @@ For more information see, [Manage a variable](https://help.mypurecloud.com/?p=10
 |**Variable**|**Set to**|
 | :-: | :-: |
 |Flow.apikey|Your API key supplied by Limitless|
-|Flow.stage|The target Limitless environment is being used by this flow. This value is supplied by Limitless|
+|Flow.stage|The target Limitless environment is used by this flow. This value is supplied by Limitless|
 |Flow.EnterpriseName|Set this value to the name of your Enterprise. This value appears in some of the Send Response blocks within the flow.|
 |Flow.GroupName|Set this to the Group Name value that Limitless provided to you|
 |Flow.LoopMax|Set to the maximum number of loops you want the Flow to go through (See ‘Enter The Loop’ section). The default value is 90 and you see through most implementations - consider changing this in only consultation with the Limitless team.|
@@ -155,7 +162,7 @@ There is another Call Data Action using the ‘Limitless Push Question’ action
 
 ##### Enter the loop
 
-After successfully submitting the customer question to Limitless GigCX, the ‘Limitless Expert’ flow prepares to enter a loop. The Loop performs two functions:
+After you successfully submit the customer question to Limitless GigCX, the ‘Limitless Expert’ flow prepares to enter a loop. The Loop performs two functions:
 
 1. Monitor the customer side of the conversation - detecting and submitting more customer dialogues to Limitless GigCX.
 2. Monitor the Limitless side of the conversation - detecting and displaying expert dialogues to the customer while monitoring the Lifecycle state of the Limitless GigCX message within the SmartCrowd platform.
@@ -180,7 +187,7 @@ If the number is now greater than the saved number, the loop moves to the custom
 
 If the number is not greater than the saved number, the loop moves to the Limitless GigCX part to pick up and send the expert dialogues. The message status is monitored within SmartCrowd, so the appropriate actions are taken within the conversation.
 
-The Wait block is executed if the customer or the expert does not present dialogue. This Wait keeps the loop from “running away” and reaching the LoopMax count too quickly. A smaller value in the WaitSeconds flow variable can make the whole experience more responsive. However, too small of a WaitSeconds value causes the entire loop to complete too soon. Consult with the Limitless GigCX team before altering these default values.
+The Wait block is executed if the customer or the expert does not present dialogue. This Wait keeps the loop from “running away” and reaching the LoopMax count too quickly. A smaller value in the WaitSeconds flow variable can make the whole experience more responsive. However, too small of a WaitSeconds value causes the entire loop to complete too soon. Consult with the Limitless GigCX team before you alter these default values.
 
 ##### Customer dialogue side of the loop
 
